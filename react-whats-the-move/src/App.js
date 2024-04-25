@@ -1,12 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
-import EventList from './components/EventsList';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Signup from './components/Signup.js'; // Adjust the path based on your project structure
 
 function App() {
   return (
-    <div className="App">
-      <EventList />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Signup />} /> 
+      </Routes>
+    </BrowserRouter>
   );
 }
 
