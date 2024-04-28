@@ -1,21 +1,22 @@
-import './App.css';
-import React, { useState } from 'react';
+
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage/HomePage';
-import TopToolbar from './components/Toolbar/Toolbar';
-import Feed from './components/Feed/Feed';
-import { BrowserRouter } from 'react-router-dom';
+import Signup from './components/Signup.js'; // Adjust the path based on your project structure
+import EventList from './components/EventsList.js';
+import Login from './components/Login.js';
+
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home'); // 'home' or 'feed'
-
-  return (
-    <div className="App">
-      <BrowserRouter>
-      {currentPage === 'feed' ? <Feed /> : <HomePage setCurrentPage={setCurrentPage} />}
-      </BrowserRouter>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<HomePage />} /> 
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
-
 
 export default App;
