@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, isUserLoggedIn, login } = require('./userModel.js');
+const { createUser, login, createFriendship, getFriends, getUser } = require('./userModel.js');
 const cors = require('cors');
 const session = require('express-session');
 
@@ -25,23 +25,6 @@ app.use(cors({
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-
-
-
-// app.post('/signup', async(req, res) => {
-//     const { username, password } = req.body;
-//     await createUser(username, password, (error, result) => {
-//         if (error) {
-//             res.status(500).json({ message: "Failed to create user", error: error.message });
-//             return;
-//         }
-//         req.session.userId = result.id;
-//         res.status(201).json({
-//             message: "User created successfully",
-//             userId: result.id
-//         });
-//     });
-// });
 
 app.post('/signup', async(req, res) => {
     const { username, password } = req.body;
@@ -75,17 +58,45 @@ app.post('/login', async (req, res) => {
 });
 
 
-app.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/login');
-  });
+// app.get('/logout', (req, res) => {
+//     req.session.destroy();
+//     res.redirect('/login');
+//   });
 
-app.get('/isUserLoggedIn', (req, res) => {
-    console.log("Session id:", req.sessionID)
-    const loggedIn = !!req.session.userId;
-    console.log('Is user logged in:', loggedIn);
-    res.json({ loggedIn: loggedIn });
-  });
+// Friendship endpoints
+
+app.post('/addFriend', async (req, res) => {
+    const { username, friend_username } = req.body;
+    try {
+        await createFriendship(username, friend_username);
+        res.status(201).json({ message: "Friendship created:", username, friend_username });
+    
+    } catch (error) {
+        res.status(500).json({ message: "Failed to create friendship", error: error.message });
+    }
+});
+
+app.post('/getFriends', async (req, res) => {
+    const { username } = req.body;
+    try {
+        const friends = await getFriends(username);
+        res.status(200).json({ friends });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to get friends", error: error.message });
+    }
+});
+
+app.post('/getUser', async (req, res) => {
+    const { username } = req.body;
+    try {
+        const user = await getUser(username);
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to get user", error: error.message });
+    }
+})
+
+
 
 const PORT = 3001;
 
