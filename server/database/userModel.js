@@ -1,16 +1,5 @@
 const db = require("./database.js");
 
-// const createUser = async (username, password, callback) => {
-//     const query = `INSERT INTO users (username, password) VALUES (?, ?)`;
-//     console.log("Creating user");
-//     await db.run(query, [username, password], function(err) {
-//         if (err) {
-//             callback(err);
-//         } else {
-//             callback(null, { id: this.lastID });
-//         }
-//     });
-// };
 
 const createUser = (username, password) => {
   return new Promise((resolve, reject) => {
@@ -61,10 +50,10 @@ const login = async (username, password) => {
     return user;
 };
 
-const createFriendship = (username, friend_username) => {
+const createFriendship = (user1, user2) => {
   return new Promise((resolve, reject) => {
-    const query = `INSERT INTO friends (username, friend_username) VALUES (?, ?)`;
-    db.run(query, [username, friend_username], function(err) {
+    const query = `INSERT INTO friends (user1, user2) VALUES (?, ?)`;
+    db.run(query, [user1, user2], function(err) {
       if (err) {
         console.error('Error creating friendship', err.message);
         reject('Failed to create friendship');
@@ -76,34 +65,36 @@ const createFriendship = (username, friend_username) => {
   });
 }
 
-const getFriends = async (username) => {
+const getFriends = async (userId) => {
   try {
+    // Fetch friends where the current user is 'user1'
     const list1 = await new Promise((resolve, reject) => {
-      db.all(`SELECT friend_username FROM friends WHERE username = ?`, [username], (err, rows) => {
+      db.all(`SELECT user2 AS friendId FROM friends WHERE user1 = ?`, [userId], (err, rows) => {
         if (err) {
           reject(err);
         } else {
-          resolve(rows);
-        }
-      });
-    });
-    console.log(list1)
-    const list2 = await new Promise((resolve, reject) => {
-      db.all(`SELECT username FROM friends WHERE friend_username = ?`, [username], (err, rows) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows);
+          resolve(rows.map(row => row.friendId));  // Map rows to return only friend IDs
         }
       });
     });
 
+    // Fetch friends where the current user is 'user2'
+    const list2 = await new Promise((resolve, reject) => {
+      db.all(`SELECT user1 AS friendId FROM friends WHERE user2 = ?`, [userId], (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows.map(row => row.friendId));  // Map rows to return only friend IDs
+        }
+      });
+    });
+
+    // Concatenate both lists to form the full list of friend IDs
     return list1.concat(list2);
-  } catch(error) {
+  } catch (error) {
     console.error('Error getting friends', error.message);
-    return [];
+    return [];  // Return an empty array if an error occurs
   }
 }
-
 
 module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends };
