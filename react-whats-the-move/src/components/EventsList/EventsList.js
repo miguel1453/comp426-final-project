@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getEvents } from '../api/ticketmaster';
 import './EventList.css';
 
+
 const EventList = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
