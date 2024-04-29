@@ -40,11 +40,11 @@ function initializeDb() {
 
     const query2 = `
         CREATE TABLE IF NOT EXISTS friends (
-            username VARCHAR(255) NOT NULL,
-            friend_username VARCHAR(255) NOT NULL,
-            PRIMARY KEY (username, friend_username),
-            Foreign Key (username) references users(username),
-            Foreign Key (friend_username) references users(username)
+            user1 INTEGER NOT NULL,
+            user2 INTEGER NOT NULL,
+            PRIMARY KEY (user1, user2),
+            Foreign Key (user1) references users(id),
+            Foreign Key (user2) references users(id)
         );`;
     db.run(query2, (err) => {
         if (err) {
