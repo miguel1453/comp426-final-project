@@ -1,0 +1,13 @@
+.searchBarInput {
+    width: 100%; /* Makes the search bar longer, taking the full width of its container */
+    background-color: white; /* Sets the background color to white */
+    border-radius: 10px; /* Gives a more oval shape */
+    /*border: 1px solid #ccc;  Optional: adds a light grey border */
+    padding: 8px 15px; /* Adds some padding inside the search bar for better text visibility */
+    color: black; /* Sets the text color to black */
+    font-size: 16px; /* Sets a specific font size for the text */
+}
+
+.searchBarInput::placeholder {
+    color: #888; /* Lighter color for the placeholder text */
+}

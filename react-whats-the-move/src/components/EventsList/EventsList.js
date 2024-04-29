@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getEvents } from '../api/eventbrite';
+import { getEvents } from '../../api/eventbrite';
 
 const EventList = () => {
     const [events, setEvents] = useState([]);
