@@ -61,4 +61,49 @@ const login = async (username, password) => {
     return user;
 };
 
-module.exports = { createUser, getUserById, getUser, login };
+const createFriendship = (username, friend_username) => {
+  return new Promise((resolve, reject) => {
+    const query = `INSERT INTO friends (username, friend_username) VALUES (?, ?)`;
+    db.run(query, [username, friend_username], function(err) {
+      if (err) {
+        console.error('Error creating friendship', err.message);
+        reject('Failed to create friendship');
+      } else {
+        console.log('Friendship created');
+        resolve();
+      }
+    });
+  });
+}
+
+const getFriends = async (username) => {
+  try {
+    const list1 = await new Promise((resolve, reject) => {
+      db.all(`SELECT friend_username FROM friends WHERE username = ?`, [username], (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+    console.log(list1)
+    const list2 = await new Promise((resolve, reject) => {
+      db.all(`SELECT username FROM friends WHERE friend_username = ?`, [username], (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+
+    return list1.concat(list2);
+  } catch(error) {
+    console.error('Error getting friends', error.message);
+    return [];
+  }
+}
+
+
+module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends };
