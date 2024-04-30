@@ -84,6 +84,7 @@ const removeFriend = async (friendId) => {
             ) : null
         ))}
     </ul>
+    <h3>Current Friends</h3>
     <ul>
       {friends.map((friend) => (
         <li key={friend.id}>
