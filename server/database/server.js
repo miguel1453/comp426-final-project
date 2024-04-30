@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, getEvents } = require('./userModel.js');
+const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, getEvents, getFriendsEvents } = require('./userModel.js');
 const cors = require('cors');
 
 const app = express();
@@ -56,9 +56,8 @@ app.get('/getFriends/:userId', async (req, res) => {
     const { userId } = req.params;  // Accessing userId from path parameters
     try {
         const friends = await getFriends(userId);
-        // Assuming getFriends returns an array of friend objects
-        const friendUsernames = friends.map(friend => friend.username);
-        res.status(200).json({ friends: friendUsernames });
+        friends.filter(friend => friend != null);
+        res.status(200).json({ friends });
     } catch (error) {
         res.status(500).json({ message: "Failed to get friends", error: error.message });
     }
@@ -103,6 +102,16 @@ app.get('/getEvents/:userId', async (req, res) => {
         res.status(200).json({ events });
     } catch (error) {
         res.status(500).json({ message: "Failed to get events", error: error.message });
+    }
+});
+
+app.get('/getFriendsEvents/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const events = await getFriendsEvents(userId);
+        res.status(200).json({ events });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to get friend events", error: error.message });
     }
 });
 
