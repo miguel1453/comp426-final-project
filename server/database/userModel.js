@@ -56,14 +56,9 @@ const login = (username, password) => {
 const createFriendship = (user1, user2) => {
   const [firstUser, secUser] = user1 < user2 ? [user1, user2] : [user2, user1];
   return new Promise((resolve, reject) => {
-    if (!user1 || !user2) {
-      console.error('Invalid input: user1 and user2 must be provided');
-      reject(new Error('Invalid input: user1 and user2 must be provided'));
-      return;
-    }
+
     const query = `INSERT INTO friends (user1, user2) VALUES (?, ?)`;
     db.run(query, [firstUser, secUser], function(err) {
-
       if (err) {
         console.error('Error checking friendship', err.message);
         reject(err);
@@ -210,7 +205,5 @@ const searchUsers = (username) => {
 
 
 
-module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, removeFriendship, searchUsers, getFriendsEvents };
-
-
+module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, getEvents, getFriendsEvents };
 

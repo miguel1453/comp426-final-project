@@ -1,5 +1,10 @@
 const express = require('express');
+
 const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, getEvents, getFriendsEvents, removeFriendship, searchUsers } = require('./userModel.js');
+
+
+
+
 
 const cors = require('cors');
 
@@ -138,6 +143,16 @@ app.delete('/removeFriend', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Failed to remove friendship", error: error.message });
 
+    }
+});
+
+app.get('/getFriendsEvents/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const events = await getFriendsEvents(userId);
+        res.status(200).json({ events });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to get friend events", error: error.message });
     }
 });
 
