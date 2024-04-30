@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styles from './FriendsEvents.module.css'; 
 
 const FriendsEvents = ({ user }) => {
     const [friendEvents, setFriendEvents] = useState([]);
@@ -19,15 +20,15 @@ const FriendsEvents = ({ user }) => {
     return(
         <div>
             <h2>Friend's Events</h2>
-            <ul>
+            <ul className={styles.FriendEvents}>
                 {friendEvents.map(user => (
-                    <li key={user.username}>
+                    <li className={styles.FriendCard} key={user.username}>
                         <h2>{user.username}</h2>
                         { user.events.length === 0 ? <p>No events saved yet</p> : 
                             ( user.events.map(event => {
                                 
                                 return(
-                                    <div key={event.eventId}>
+                                    <div className={styles.EventBox} key={event.eventId}>
                                         <h3>{event.eventName} - {event.eventDate}</h3>
                                         <a href='#'> Implement link to event </a>
                                     </div>

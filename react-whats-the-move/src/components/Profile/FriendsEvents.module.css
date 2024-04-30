@@ -1,0 +1,33 @@
+/* friendsevents.module.css */
+.FriendCard {
+    background-color: #f5f5dc; /* Beige background */
+    padding: 16px; /* Inner padding */
+    margin-bottom: 20px; /* Space between friend cards */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .FriendEvents {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .EventBox {
+    background-color: #C4A484; /* Light brown background */
+    padding: 12px; /* Inner padding */
+    margin-bottom: 10px; /* Space between events */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .EventBox a {
+    color: blue; /* Make link text blue */
+    text-decoration: underline; /* Underline link */
+    display: block; /* Display link on a new line */
+    margin-top: 8px; /* Space between event details and link */
+  }
+  
+  .EventBox a:hover {
+    color: darkblue; /* Darker shade on hover */
+  }
+  
