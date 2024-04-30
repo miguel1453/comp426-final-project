@@ -7,10 +7,8 @@ function HomePage() {
 
   return (
     <div className="HomePage">
-      <TopToolbar 
-      onFeedClick={() => navigate('/feed')} 
-      onHomeClick={() => navigate('/')} 
-      />
+      <TopToolbar />
+      <EventList />
     
     </div>
   );

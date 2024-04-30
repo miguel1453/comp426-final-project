@@ -1,51 +1,75 @@
 .event-list-container {
     margin: 20px;
     padding: 20px;
-}
+  }
+
+  .event-header-container {
+    text-align: center; /* Center aligns text within this container */
+    color: #483C32;
+  }
   
-.event-card {
+  .event-search-container {
+    display: flex; /* Use flexbox for the container */
+    justify-content: center; /* Center the contents horizontally */
+    gap: 10px; /* Space between input fields */
+    margin-bottom: 20px; /* Space between the search bar and event cards */
+  }
+  
+  .event-cards {
+    display: flex; /* Use flexbox for the container */
+    flex-wrap: wrap; /* Allow rows to wrap */
+    gap: 16px; /* Space between cards */
+    justify-content: space-between; /* Evenly space out cards across the row */
+  }
+  
+  .event-card {
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin: 10px;
     padding: 20px;
-    width: 300px;
-}
-
-.event-image {
-    max-width: 100%;
+    width: 30%; /* Set width to 30% to ensure three cards fit in one row */
+    box-sizing: border-box; /* Ensure padding and border are included in width calculations */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #C4A484; /* Set light brown background color */
+    position: relative; /* For child positioning */
+  }
+  
+  .event-image {
+    max-width: 100%; /* Make the image take up the entire width of the card */
     height: auto;
     border-radius: 4px;
     margin-bottom: 12px;
-}
+  }
   
-select {
+  select {
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 4px;
     border: 1px solid #ccc;
   }
-
-
-.event-card {
-    border: 1px solid #ccc;
-    padding: 16px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-input[type="text"] {
+  
+  input[type="text"] {
     padding: 8px;
     margin-right: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
-button {
+  button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #483C32; /* Set background color for all buttons */
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
   }
+
+  button:hover {
+    background-color: #362f27; /* Darker shade on hover */
+  }
+
+  .add-to-saved-button {
+    position: absolute; /* Absolute positioning for exact placement */
+    bottom: 10px; /* 10px from the bottom */
+    right: 10px; /* 10px from the right */
+  }
+  

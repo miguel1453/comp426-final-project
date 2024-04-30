@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { getEvents } from '../../api/ticketmaster';
 import './EventList.css';
+import Cookies from 'js-cookie';
 
+
+// Helper function to check if a user is logged in
+const isLoggedIn = () => {
+  const loggedIn = Cookies.get('userId'); // Check for the cookie named 'loggedIn' and its value
+  return loggedIn;
+};
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -9,6 +16,14 @@ const EventList = () => {
   const [error, setError] = useState(null);
   const [location, setLocation] = useState('Chapel Hill'); // Default location set
   const [type, setType] = useState(''); // Default type, empty means all types
+  const loggedIn = isLoggedIn(); // Check login status once on component mount
+
+  if (loggedIn != null) {
+    console.log("logged in");
+    console.log(loggedIn)
+  } else {
+    console.log("not logged in")
+  }
 
   // Function to fetch events based on current state
   const fetchEvents = async () => {
@@ -30,10 +45,18 @@ const EventList = () => {
     fetchEvents();
   }, []); // Empty dependency array ensures this runs only once on mount
 
+    // Function to handle adding an event to saved events
+    const addToSavedEvents = (event) => {
+      // Logic for adding event to saved events (e.g., API call or local storage update)
+      console.log('Adding to saved events:', event.name);
+    };
+
   return (
-    <div>
+    <div >
+        <div className="event-header-container">
       <h1>Events in {location}</h1>
-      <div>
+    </div>
+      <div className="event-search-container">
         <input
           type="text"
           value={location}
@@ -60,6 +83,10 @@ const EventList = () => {
               <h2>{event.name}</h2>
               <p>{event.dates.start.localDate} at {event._embedded?.venues[0].name}</p>
               <a href={event.url} target="_blank" rel="noopener noreferrer">More Details</a>
+              {/* Add button to save event if the user is logged in */}
+              {loggedIn && (
+                <button className="add-to-saved-button" onClick={() => addToSavedEvents(event)}>Add to Saved Events</button>
+              )}
             </div>
           )) : <p>No events found!</p>}
         </div>

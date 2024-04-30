@@ -1,1 +1,13 @@
-.Toolbar {}
+.toolbarTink {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+  
+    font-size: 1rem; /* Set font size */
+    font-family: sans-serif; /* Set font family */
+  
+    margin-left: 10px; /* Space between links */
+  }
+  
+  .toolbarTink:hover {
+    text-decoration: underline; /* Underline on hover to indicate interaction */
+  }

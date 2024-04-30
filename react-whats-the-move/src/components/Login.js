@@ -3,10 +3,12 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 import '../App.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
 
     const handleLogin = async (event) => {
@@ -18,6 +20,7 @@ function Login() {
             });
             console.log('Login successful:', response.data);
             Cookie.set('userId', response.data.id, { expires: 7 });
+            navigate('/');
         } catch (err) {
             console.error('Login failed:', err.response ? err.response.data : 'No response');
         }

@@ -10,7 +10,7 @@ import Profile from './components/Profile/Profile.js';
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename='/'>
             <Routes>
 
                 <Route path="/" element={<HomePage />} /> 
