@@ -1,10 +1,13 @@
 const express = require('express');
 const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, getEvents, removeFriendship, searchUsers, getFriendsEvents } = require('./userModel.js');
+const cors = require('cors');
 
 const cors = require('cors');
 
 
 const app = express();
+
+app.use(cors( { origin: 'http://localhost:3000' } )); // Allow requests from React app
 
 // Middleware to parse JSON bodies
 app.use(express.json());
