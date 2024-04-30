@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent } = require('./userModel.js');
+const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, getEvents } = require('./userModel.js');
 const cors = require('cors');
 
 const app = express();
@@ -93,6 +93,16 @@ app.post('/addEvent', async (req, res) => {
         res.status(201).json({ message: "Event saved successfully", eventId: result.id });
     } catch (error) {
         res.status(500).json({ message: "Failed to save event", error: error.message });
+    }
+});
+
+app.get('/getEvents/:userId', async (req, res) => {
+    const { userId } = req.params;  // Accessing userId from path parameters
+    try {
+        const events = await getEvents(userId);
+        res.status(200).json({ events });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to get events", error: error.message });
     }
 });
 

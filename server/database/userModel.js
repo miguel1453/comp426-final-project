@@ -115,4 +115,21 @@ const addEvent = async (userId, eventName, eventDate, eventId) => {
   });
 }
 
-module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent };
+const getEvents = async (userId) => {
+  try {
+    return new Promise((resolve, reject) => {
+      db.all(`SELECT * FROM savedEvents WHERE userId = ?`, [userId], (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  } catch (error) {
+    console.error('Error getting events', error.message);
+    return [];
+  }
+}
+
+module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, getEvents };
