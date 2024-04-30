@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 function Signup() {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -14,6 +16,8 @@ function Signup() {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/signup', {
+                firstName: firstName,
+                lastName: lastName,
                 username: username,
                 password: password
             });
@@ -31,6 +35,20 @@ function Signup() {
             <form onSubmit={handleSignup} className='signup-form'>
                 <h2>Signup</h2>
                 <div>
+                    <label>First Name:</label>
+                    <input
+                        type="text"
+                        value={firstName}
+                        onChange={e => setFirstName(e.target.value)}
+                        required
+                    />
+                     <label>Last Name:</label>
+                    <input
+                        type="text"
+                        value={lastName}
+                        onChange={e => setLastName(e.target.value)}
+                        required
+                    />
                     <label>Username:</label>
                     <input
                         type="text"
