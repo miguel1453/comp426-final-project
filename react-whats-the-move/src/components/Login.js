@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookie from 'js-cookie';
 import '../App.css';
+import { Link } from 'react-router-dom';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -31,6 +32,7 @@ function Login() {
                 <label>Password:</label>
                 <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
                 <button type="submit">Login</button>
+                <Link to="/signup">Don't have an account?</Link>
             </form>
         </div>
     );
