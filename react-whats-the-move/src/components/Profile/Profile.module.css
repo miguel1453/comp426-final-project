@@ -36,3 +36,29 @@
     background-color: #362f27; /* Darker shade on hover */
   }
   
+
+  /* for SavedEvents */
+.SavedEventList {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .SavedEventItem {
+    background-color: #C4A484; /* Light brown background color */
+    padding: 20px; /* Inner padding */
+    margin-bottom: 10px; /* Space between event items */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .SavedEventItem a {
+    /* color: blue; Make link text blue */
+    text-decoration: underline; /* Underline link */
+    display: block; /* Display link on a new line */
+    margin-top: 8px; /* Space between event details and link */
+  }
+  
+  .SavedEventItem a:hover {
+    color: darkblue; /* Darker shade on hover */
+  }
+  

@@ -52,7 +52,8 @@ const EventList = () => {
           userId: id,
           eventName: event.name,
           eventDate: event.dates.start.localDate,
-          eventId: event.id
+          eventId: event.id,
+          eventUrl: event.url
       });
       } catch (err) { 
         console.error('Failed to save event:', err.response ? err.response.data : 'No response');
