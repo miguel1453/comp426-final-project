@@ -106,7 +106,7 @@ const addEvent = async (userId, eventName, eventDate, eventId) => {
     db.run(query, [userId, eventName, eventDate, eventId], function(err) {
       if (err) {
         console.error('Error saving event', err.message);
-        reject('Failed to save event');
+        reject('Failed to save event', err.message);
       } else {
         console.log('Event saved');
         resolve({ id: this.lastID }); // Return the id of the inserted row
