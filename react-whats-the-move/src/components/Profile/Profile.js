@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import styles from './Profile.module.css';
 import FriendshipManager from '../FriendshipManager/FriendshipManager.js';
 import FriendsEvents from './FriendsEvents.js';
+import LocalActivity from '@mui/icons-material/LocalActivity.js';
 
 const Profile = () => {
     const [user, setUser] = useState({});
@@ -37,11 +38,11 @@ const Profile = () => {
             <AppBar position="static" sx={{ backgroundColor: '#483C32' }}>
                 <Toolbar>
                     <IconButton edge="start" component={Link} to="/" color="inherit">
-                        {/* Your icon here */}
+                    <LocalActivity /> 
                     </IconButton>
                     <Box sx={{ flexGrow: 1 }}></Box>
                     <Typography variant="h5" sx={{ fontFamily: 'Limelight, sans-serif' }}>
-                        My Profile
+                        my profile
                     </Typography>
                 </Toolbar>
             </AppBar>

@@ -66,6 +66,7 @@ const removeFriend = async (friendId) => {
 
   return (
     <div>
+      <h2>Friends</h2>
       <input
         type="text"
         value={searchUsername}
@@ -84,7 +85,6 @@ const removeFriend = async (friendId) => {
         ))}
     </ul>
     <ul>
-      <h2>Friends</h2>
       {friends.map((friend) => (
         <li key={friend.id}>
           {friend.username}
