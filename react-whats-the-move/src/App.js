@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Signup from './components/Signup.js'; // Adjust the path based on your project structure
 import './App.css';
 import HomePage from './components/HomePage/HomePage';
+import Signup from './components/Signup.js'; 
 import Login from './components/Login.js';
 import Profile from './components/Profile/Profile.js';
 
