@@ -54,6 +54,7 @@ const login = (username, password) => {
 }
 
 const createFriendship = (user1, user2) => {
+  const [firstUser, secUser] = user1 < user2 ? [user1, user2] : [user2, user1];
   return new Promise((resolve, reject) => {
     const query = `INSERT INTO friends (user1, user2) VALUES (?, ?)`;
     db.run(query, [firstUser, secUser], function(err) {
@@ -73,21 +74,21 @@ const getFriends = async (userId) => {
     // Fetch friends where the current user is 'user1'
     const list1 = await new Promise((resolve, reject) => {
       db.all(`
-          SELECT f.user2, u.username
+          SELECT  u.username, u.id, u.firstName, u.lastName
           FROM friends f 
           JOIN users u on u.id = f.user2
           WHERE f.user1 = ?`, [userId], (err, rows) => {
         if (err) {
           reject(err);
         } else {
-          resolve(rows.map(row => row.username));  // Map rows to return only friend IDs
+          resolve(rows);  // Map rows to return only friend IDs
         }
       });
     });
     // Fetch friends where the current user is 'user2'
     const list2 = await new Promise((resolve, reject) => {
       db.all(`
-            SELECT f.user1, u.username
+            SELECT u.username, u.id, u.firstName, u.lastName
             FROM friends f 
             JOIN users u on u.id = f.user1
             WHERE f.user2 = ?
@@ -95,7 +96,7 @@ const getFriends = async (userId) => {
         if (err) {
           reject(err);
         } else {
-          resolve(rows.map(row => row.username));  // Map rows to return only friend IDs
+          resolve(rows);  // Map rows to return only friend IDs
         }
       });
     });
@@ -190,5 +191,5 @@ const searchUsers = (username) => {
 
 
 
-module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, getEvents, getFriendsEvents, addEvent, searchUsers };
+module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, getEvents, getFriendsEvents, addEvent, searchUsers, removeFriendship };
 

@@ -57,7 +57,6 @@ app.get('/getFriends/:userId', async (req, res) => {
     const { userId } = req.params;  // Accessing userId from path parameters
     try {
         const friends = await getFriends(userId);
-        friends.filter(friend => friend != null);
         res.status(200).json({ friends });
     } catch (error) {
         res.status(500).json({ message: "Failed to get friends", error: error.message });
@@ -138,15 +137,6 @@ app.delete('/removeFriend', async (req, res) => {
     }
 });
 
-app.get('/getFriendsEvents/:userId', async (req, res) => {
-    const { userId } = req.params;
-    try {
-        const events = await getFriendsEvents(userId);
-        res.status(200).json({ events });
-    } catch (error) {
-        res.status(500).json({ message: "Failed to get friend events", error: error.message });
-    }
-});
 
 const PORT = 3001;
 

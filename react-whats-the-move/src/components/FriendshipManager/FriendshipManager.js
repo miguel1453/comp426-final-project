@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const FriendshipManager = ({ userId }) => {
   const [friends, setFriends] = useState([]);
@@ -14,6 +13,7 @@ const FriendshipManager = ({ userId }) => {
   const fetchFriends = async () => {
     try {
       const response = await axios.get(`http://localhost:3001/getFriends/${userId}`);
+      console.log("Friends: ", response.data.friends);
       setFriends(response.data.friends);
     } catch (error) {
       console.error('Failed to fetch friends:', error);
@@ -43,7 +43,10 @@ const FriendshipManager = ({ userId }) => {
 
   const removeFriend = async (friendId) => {
     try {
-      await axios.delete(`http://localhost:3001/removeFriend`, { data: { user1: userId, user2: friendId } });
+      await axios.delete(`http://localhost:3001/removeFriend`, { 
+         user1: userId, 
+         user2: friendId
+         });
       setFriends(friends.filter(friend => friend.id !== friendId));
     } catch (error) {
       console.error('Failed to remove friend:', error);
@@ -84,15 +87,15 @@ const FriendshipManager = ({ userId }) => {
         ))}
     </ul>
     <ul>
-        {friends.map((friend, index) => (
-            friend && friend.username ? (
-            <li key={friend.id || index}>
-                {friend.username}
-                <button onClick={() => removeFriend(friend.id)}>Remove</button>
-            </li>
-            ) : null
-        ))}
-        </ul>
+      <h2>Friends</h2>
+      {friends.map((friend) => (
+        <li key={friend.id}>
+          {friend.username}
+          {friend.firstName && ` ${friend.firstName} ${friend.lastName}`}
+          <button onClick={() => removeFriend(friend.id)}>Remove Friend</button>
+        </li>
+      ))}
+    </ul>
     </div>
   );
 };
