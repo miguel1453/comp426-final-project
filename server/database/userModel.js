@@ -112,7 +112,7 @@ const addEvent = async (userId, eventName, eventDate, eventId) => {
     db.run(query, [userId, eventName, eventDate, eventId], function(err) {
       if (err) {
         console.error('Error saving event', err.message);
-        reject('Failed to save event');
+        reject('Failed to save event', err.message);
       } else {
         console.log('Event saved');
         resolve({ id: this.lastID }); // Return the id of the inserted row
@@ -148,5 +148,22 @@ const searchUsers = (username) => {
   });
 };
 
+const getEvents = async (userId) => {
+  try {
+    return new Promise((resolve, reject) => {
+      db.all(`SELECT * FROM savedEvents WHERE userId = ?`, [userId], (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  } catch (error) {
+    console.error('Error getting events', error.message);
+    return [];
+  }
+}
 
-module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, removeFriendship, searchUsers };
+module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, removeFriendship, searchUsers, getEvents };
+n

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getEvents } from '../../api/ticketmaster';
 import './EventList.css';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 
 // Helper function to check if a user is logged in
@@ -40,15 +41,22 @@ const EventList = () => {
     }
   };
 
-  // useEffect to load Chapel Hill events on component mount
   useEffect(() => {
     fetchEvents();
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []); 
 
-    // Function to handle adding an event to saved events
-    const addToSavedEvents = (event) => {
-      // Logic for adding event to saved events (e.g., API call or local storage update)
-      console.log('Adding to saved events:', event.name);
+    const addToSavedEvents = async (event) => {
+      try {
+        const id = Cookies.get('userId');
+        await axios.post('http://localhost:3001/addEvent', {  
+          userId: id,
+          eventName: event.name,
+          eventDate: event.dates.start.localDate,
+          eventId: event.id
+      });
+      } catch (err) { 
+        console.error('Failed to save event:', err.response ? err.response.data : 'No response');
+      }
     };
 
   return (

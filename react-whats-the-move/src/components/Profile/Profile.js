@@ -3,7 +3,12 @@ import styles from './Profile.module.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import FriendshipManager from '../FriendshipManager/FriendshipManager';
-
+import pstyles from './Profile.module.css';
+import LocalActivity from '@mui/icons-material/LocalActivity';
+import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
+import Login from '../Login.js'
+import SavedEvents from './SavedEvents.js';
 
 const Profile = () => {
   const [user, setUser] = useState({});
@@ -15,6 +20,7 @@ const Profile = () => {
     }
   }, []);
 
+
   const findUser = async (id) => {
     try {
       const response = await axios.get(`http://localhost:3001/getUserById/${id}`);
@@ -24,20 +30,63 @@ const Profile = () => {
     }
   };
 
+  const logout = () => {
+    Cookies.remove('userId');
+    window.location.href = '/';
+  };
+
+
   return (
-    !user ? (
-      <div>Loading</div>
+    <div className={styles.ProfilePage}>
+    <AppBar position="static" sx={{ backgroundColor: '#483C32' }}>
+      <Toolbar>
+        <IconButton edge="start" component={Link} to="/" color="inherit">
+          <LocalActivity />
+        </IconButton>
+
+        <Box sx={{ flexGrow: 1 }}></Box> {/* Fills space between icon and text */}
+
+        <Typography variant="h5" sx={{ fontFamily: 'Limelight, sans-serif'}}>
+          my profile
+        </Typography>
+      </Toolbar>
+    </AppBar>
+    {!user ? (
+      <Login />
     ) : (
       <div className={styles.Profile}>
-        <h2>Profile</h2>
         <div className={styles.Info}>
-          <p><strong>First Name: {user.firstName}</strong> </p>
-          <p><strong>Last Name: {user.lastName}</strong></p>
-          <p><strong>Username: {user.username}</strong> </p>
+          <h2 className={styles.InfoLine}><strong>First Name: {user.firstName}</strong> </h2>
+          <h2 className={styles.InfoLine}><strong>Last Name: {user.lastName}</strong></h2>
+          <h2 className={styles.InfoLine}><strong>Username: {user.username}</strong> </h2>
         </div>
         <FriendshipManager userId={user.id} />
+
+  
+        <SavedEvents user={user}/>
+  
+        <h1>Friends List</h1>
+        <h3>Add friends by username</h3>
+        <input
+          type="text"
+          value={searchUsername}
+          placeholder="Username..."
+          onChange={(e) => setSearchUsername(e.target.value)}
+        />
+        <FriendshipManager userId={user.id} />
+        <p></p>
+        <div>
+        <button onClick={logout}>Log Out</button>
+          </div>
+        <ul className={styles.FriendsList}>
+          {filteredFriends.map((friend, index) => (
+            <li key={index}>{friend.username}</li>
+          ))}
+        </ul>
+
       </div>
-    )
+    )}
+    </div>
   );
 }
 
