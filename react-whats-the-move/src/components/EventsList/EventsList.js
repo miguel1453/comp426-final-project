@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getEvents } from '../api/ticketmaster';
+import { getEvents } from '../../api/ticketmaster';
 import './EventList.css';
 
 
