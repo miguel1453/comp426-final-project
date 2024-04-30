@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent } = require('./userModel.js');
+const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, removeFriendship, searchUsers } = require('./userModel.js');
 const cors = require('cors');
 
 const app = express();
@@ -43,11 +43,14 @@ app.post('/login', async (req, res) => {
 
 app.post('/addFriend', async (req, res) => {
     const { user1, user2 } = req.body;
+    if (!user1 || !user2) {
+        return res.status(400).json({ message: "Missing user IDs" });
+    }
     try {
         await createFriendship(user1, user2);
-        res.status(201).json({ message: "Friendship created:", user1, user2 });
-    
+        res.status(201).json({ message: "Friendship created successfully", user1, user2 });
     } catch (error) {
+        console.error('Failed to create friendship:', error);
         res.status(500).json({ message: "Failed to create friendship", error: error.message });
     }
 });
@@ -93,6 +96,27 @@ app.post('/addEvent', async (req, res) => {
         res.status(201).json({ message: "Event saved successfully", eventId: result.id });
     } catch (error) {
         res.status(500).json({ message: "Failed to save event", error: error.message });
+    }
+});
+
+app.get('/searchUsers/:username', async (req, res) => {
+    try {
+        const users = await searchUsers(req.params.username);
+        res.status(200).json(users);  // Send back the list of users
+    } catch (error) {
+        console.error('Failed to search users:', error);
+        res.status(500).json({ message: 'Failed to search users', error: error.message });
+    }
+});
+
+// Remove a friendship
+app.delete('/removeFriend', async (req, res) => {
+    const { user1, user2 } = req.body; // Assuming you send user1 and user2 IDs
+    try {
+        await removeFriendship(user1, user2);
+        res.status(200).json({ message: "Friendship removed successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to remove friendship", error: error.message });
     }
 });
 
