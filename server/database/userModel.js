@@ -145,7 +145,7 @@ const getFriendsEvents = async (userId) => {
     const friends = await getFriends(userId);
     console.log('Friends:', friends)
     const friendsInfo = await Promise.all(friends.map(async (friend) => {
-      const user = await getUserById(friend);
+      const user = await getUserById(friend.id);
       return {id: user.id, username: user.username};
     }));
     console.log('Friend IDs:', friendsInfo)

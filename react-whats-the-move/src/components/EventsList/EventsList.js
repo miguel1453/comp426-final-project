@@ -19,13 +19,6 @@ const EventList = () => {
   const [type, setType] = useState(''); // Default type, empty means all types
   const loggedIn = isLoggedIn(); // Check login status once on component mount
 
-  if (loggedIn != null) {
-    console.log("logged in");
-    console.log(loggedIn)
-  } else {
-    console.log("not logged in")
-  }
-
   // Function to fetch events based on current state
   const fetchEvents = async () => {
     setLoading(true);

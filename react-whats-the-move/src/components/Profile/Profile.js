@@ -7,6 +7,7 @@ import SavedEvents from './SavedEvents.js';
 import Cookies from 'js-cookie';
 import styles from './Profile.module.css';
 import FriendshipManager from '../FriendshipManager/FriendshipManager.js';
+import FriendsEvents from './FriendsEvents.js';
 
 const Profile = () => {
     const [user, setUser] = useState({});
@@ -52,10 +53,12 @@ const Profile = () => {
                         <h2><strong>First Name: {user.firstName}</strong></h2>
                         <h2><strong>Last Name: {user.lastName}</strong></h2>
                         <h2><strong>Username: {user.username}</strong></h2>
+                        <button onClick={logout}>Log Out</button>
                     </div>
                     <FriendshipManager userId={user.id} />
                     <SavedEvents user={user} />
-                    <button onClick={logout}>Log Out</button>
+                    <FriendsEvents user={user} />
+                    
                 </div>
             )}
         </div>
