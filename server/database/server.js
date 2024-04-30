@@ -19,7 +19,7 @@ app.post('/signup', async(req, res) => {
         const result = await createUser(username, password, firstName, lastName);
         res.status(201).json({
             message: "User created successfully",
-            user: result.id
+            id: result.id
         });
     } catch (error) {
         res.status(500).json({ message: "Failed to create user", error: error.message });
@@ -53,18 +53,18 @@ app.post('/addFriend', async (req, res) => {
     }
 });
 
-app.post('/getFriends', async (req, res) => {
-    const { userId } = req.body;
+app.get('/getFriends/:userId', async (req, res) => {
+    const { userId } = req.params;  // Accessing userId from path parameters
     try {
         const friends = await getFriends(userId);
-        friends.map(friend => {
-            return friend.username
-    });
-        res.status(200).json({ friends });
+        // Assuming getFriends returns an array of friend objects
+        const friendUsernames = friends.map(friend => friend.username);
+        res.status(200).json({ friends: friendUsernames });
     } catch (error) {
         res.status(500).json({ message: "Failed to get friends", error: error.message });
     }
 });
+
 
 app.post('/getUser', async (req, res) => {
     const { username } = req.body;
@@ -76,8 +76,8 @@ app.post('/getUser', async (req, res) => {
     }
 });
 
-app.post('/getUserByID', async (req, res) => {
-    const { userId } = req.body;
+app.get('/getUserById/:userId', async (req, res) => {
+    const { userId } = req.params;  // Accessing userId from path parameters
     try {
         const user = await getUserById(userId);
         res.status(200).json({ user });
@@ -85,6 +85,7 @@ app.post('/getUserByID', async (req, res) => {
         res.status(500).json({ message: "Failed to get user", error: error.message });
     }
 });
+
 
 app.post('/addEvent', async (req, res) => {
     const { userId, eventName, eventDate, eventId } = req.body;

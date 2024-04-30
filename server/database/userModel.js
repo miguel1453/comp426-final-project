@@ -16,7 +16,7 @@ const createUser = (username, password, firstName, lastName) => {
 
 const getUserById = (id) => {
   return new Promise((resolve, reject) => {
-    db.get(`SELECT username, id, password FROM users WHERE id = ?`, [id], (err, row) => {
+    db.get(`SELECT * FROM users WHERE id = ?`, [id], (err, row) => {
       if (err) {
         reject(err);
       } else {
@@ -28,7 +28,7 @@ const getUserById = (id) => {
 
 const getUser = (username) => {
     return new Promise((resolve, reject) => {
-      db.get(`SELECT username, id, password FROM users WHERE username = ?`, [username], (err, row) => {
+      db.get(`SELECT * FROM users WHERE username = ?`, [username], (err, row) => {
         if (err) {
           reject(err);
         } else {

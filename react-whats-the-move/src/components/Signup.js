@@ -22,6 +22,7 @@ function Signup() {
                 password: password
             });
             console.log('Signup successful:', response.data);
+            console.log('User ID:', response.data.id)
             Cookies.set('userId', response.data.id, { expires: 7 }); // Set a cookie with the user's ID
             navigate('/'); // Redirect to the home page
         } catch (err) {
