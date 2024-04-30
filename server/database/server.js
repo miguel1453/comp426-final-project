@@ -1,19 +1,10 @@
 const express = require('express');
-
-const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, getEvents, getFriendsEvents, removeFriendship, searchUsers } = require('./userModel.js');
-
-
-
-
+const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, getEvents, removeFriendship, searchUsers, getFriendsEvents } = require('./userModel.js');
 
 const cors = require('cors');
 
-const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:3000', // adjust as needed
-  credentials: true
-}));
+const app = express();
 
 // Middleware to parse JSON bodies
 app.use(express.json());

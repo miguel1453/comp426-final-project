@@ -54,33 +54,18 @@ const login = (username, password) => {
 }
 
 const createFriendship = (user1, user2) => {
-  const [firstUser, secUser] = user1 < user2 ? [user1, user2] : [user2, user1];
   return new Promise((resolve, reject) => {
-
     const query = `INSERT INTO friends (user1, user2) VALUES (?, ?)`;
     db.run(query, [firstUser, secUser], function(err) {
       if (err) {
-        console.error('Error checking friendship', err.message);
-        reject(err);
-      } else if (result) {
-        // If there's already such a friendship, we reject with a specific message
-        reject(new Error('Friendship already exists'));
+        reject(new Error('Error creating friendship: ' + err.message));
       } else {
-        // If no friendship exists, proceed to insert
-        const insertQuery = `INSERT INTO friends (user1, user2) VALUES (?, ?)`;
-        db.run(insertQuery, [user1, user2], function(err) {
-          if (err) {
-            console.error('Error creating friendship', err.message);
-            reject(err);
-          } else {
-            console.log('Friendship created');
-            resolve();
-          }
-        });
+        resolve('Friendship created');
       }
     });
   });
 };
+
 
 
 const getFriends = async (userId) => {
@@ -205,5 +190,5 @@ const searchUsers = (username) => {
 
 
 
-module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, getEvents, getFriendsEvents };
+module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, getEvents, getFriendsEvents, addEvent, searchUsers };
 
