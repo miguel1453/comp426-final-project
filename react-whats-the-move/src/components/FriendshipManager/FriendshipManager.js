@@ -79,7 +79,7 @@ const removeFriend = async (friendId) => {
             user ? (
             <li key={user.id || index}>
                 {user.username}
-                <button onClick={() => addFriend(user.id)}>Add Friend</button>
+                <button style={{ marginLeft: '10px' }} onClick={() => addFriend(user.id)}>Add Friend</button>
             </li>
             ) : null
         ))}
@@ -87,9 +87,9 @@ const removeFriend = async (friendId) => {
     <ul>
       {friends.map((friend) => (
         <li key={friend.id}>
+          {friend.firstName && ` ${friend.firstName} ${friend.lastName}`} -
           {friend.username}
-          {friend.firstName && ` ${friend.firstName} ${friend.lastName}`}
-          <button onClick={() => removeFriend(friend.id)}>Remove Friend</button>
+          <button style={{ marginLeft: '10px' }} onClick={() => removeFriend(friend.id)}>Remove Friend</button>
         </li>
       ))}
     </ul>

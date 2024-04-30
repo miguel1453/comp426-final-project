@@ -56,8 +56,8 @@ const Profile = () => {
                         <h2><strong>Username: {user.username}</strong></h2>
                         <button onClick={logout}>Log Out</button>
                     </div>
-                    <FriendshipManager userId={user.id} />
                     <SavedEvents user={user} />
+                    <FriendshipManager userId={user.id} />
                     <FriendsEvents user={user} />
                     
                 </div>
