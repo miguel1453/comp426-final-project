@@ -10,7 +10,7 @@ function TopToolbar({ onFeedClick, onHomeClick }) {
     return (
         <AppBar position="static" sx={{ backgroundColor: '#483C32' }}>
             <Toolbar>
-                <IconButton color="inherit" onClick={onHomeClick} sx={{ marginRight: 0 }}>
+                <IconButton color="inherit" component={Link} to="/" sx={{ marginRight: 0 }}>
                     <LocalActivity /> 
                 </IconButton>
                 <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontFamily: 'Limelight, sans-serif', marginLeft: 0}}>

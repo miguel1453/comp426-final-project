@@ -1,1 +1,38 @@
-.Profile {}
+/* Profile.module.css */
+.Info {
+    border: 1px solid #ccc; /* Light border around the box */
+    padding: 16px; /* Inner padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .InfoLine {
+    padding-bottom: 8px; /* Padding between entries */
+    border-bottom: 1px solid #e0e0e0; /* Light line between entries */
+  }
+  
+  .InfoLine:last-child {
+    border-bottom: none; /* No border after the last entry */
+  }
+  
+  .SavedEvents {
+    margin-top: 20px; /* Space between events section and user info */
+  }
+  
+  .FriendsList {
+    margin-top: 10px; /* Space between friends list and other sections */
+  }
+  
+  button {
+    background-color: #483C32; /* Dark brown background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 20px; /* Padding for each button */
+  }
+  
+  button:hover {
+    background-color: #362f27; /* Darker shade on hover */
+  }
+  
