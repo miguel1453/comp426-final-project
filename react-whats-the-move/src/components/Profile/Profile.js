@@ -2,38 +2,37 @@ import React, { useState, useEffect } from 'react';
 import styles from './Profile.module.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import pstyles from './Profile.module.css';
+
 import LocalActivity from '@mui/icons-material/LocalActivity';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Login from '../Login.js'
 import SavedEvents from './SavedEvents.js';
+import FriendshipManager from './FriendshipManager.js';
 
 const Profile = () => {
-  const [searchUsername, setSearchUsername] = useState('');
-  const [filteredFriends, setFilteredFriends] = useState([]);
   const [user, setUser] = useState({});
 
-  const savedEvents = ['Event 1', 'Event 2', 'Event 3'];
-  const friendsList = [{ username: 'Friend 1' }, { username: 'Friend 2' }, { username: 'Friend 3' }];
-  
   useEffect(() => {
     const id = Cookies.get('userId');
-    const findUser = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/getUserById/${id}`);
-        setUser(response.data.user);
-      } catch (err) {
-        console.error('Failed to get user:', err.response ? err.response.data : 'No response');
+    if (id) {
+      findUser(id);
     }
-   
-  }
-  findUser();
   }, []);
+
 
   const logout = () => {
     Cookies.remove('userId');
     window.location.href = '/';
+  };
+
+  const findUser = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/getUserById/${id}`);
+      setUser(response.data.user);
+    } catch (err) {
+      console.error('Failed to get user:', err.response ? err.response.data : 'No response');
+    }
   };
 
 
@@ -64,24 +63,10 @@ const Profile = () => {
   
         <SavedEvents user={user}/>
   
-        <h1>Friends List</h1>
-        <h3>Add friends by username</h3>
-        <input
-          type="text"
-          value={searchUsername}
-          placeholder="Username..."
-          onChange={(e) => setSearchUsername(e.target.value)}
-        />
-        <button>Add Friend</button>
-        <p></p>
-        <div>
-        <button onClick={logout}>Log Out</button>
-          </div>
-        <ul className={styles.FriendsList}>
-          {filteredFriends.map((friend, index) => (
-            <li key={index}>{friend.username}</li>
-          ))}
-        </ul>
+  
+
+        <FriendshipManager userId={user.id} />
+
       </div>
     )}
     </div>

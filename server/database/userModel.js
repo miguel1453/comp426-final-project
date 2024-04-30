@@ -56,18 +56,24 @@ const login = (username, password) => {
 const createFriendship = (user1, user2) => {
   const [firstUser, secUser] = user1 < user2 ? [user1, user2] : [user2, user1];
   return new Promise((resolve, reject) => {
+    if (!user1 || !user2) {
+      console.error('Invalid input: user1 and user2 must be provided');
+      reject(new Error('Invalid input: user1 and user2 must be provided'));
+      return;
+    }
+    
     const query = `INSERT INTO friends (user1, user2) VALUES (?, ?)`;
     db.run(query, [firstUser, secUser], function(err) {
       if (err) {
         console.error('Error creating friendship', err.message);
-        reject('Failed to create friendship');
+        reject(err);
       } else {
         console.log('Friendship created');
         resolve();
       }
     });
   });
-}
+};
 
 const getFriends = async (userId) => {
   try {
@@ -161,4 +167,34 @@ const getFriendsEvents = async (userId) => {
   }
 };
 
-module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, getEvents, getFriendsEvents };
+
+const removeFriendship = (user1, user2) => {
+  return new Promise((resolve, reject) => {
+      const query = `DELETE FROM friends WHERE (user1 = ? AND user2 = ?) OR (user1 = ? AND user2 = ?)`;
+      db.run(query, [user1, user2, user2, user1], function(err) {
+          if (err) {
+              reject(err);
+          } else {
+              resolve();
+          }
+      });
+  });
+};
+
+const searchUsers = (username) => {
+  return new Promise((resolve, reject) => {
+      const query = `SELECT id, username FROM users WHERE username LIKE '%' || ? || '%'`;
+      db.all(query, [username], (err, users) => {
+          if (err) {
+              console.error('Error searching users', err.message);
+              reject(err);
+          } else {
+              resolve(users);
+          }
+      });
+  });
+};
+
+
+module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, removeFriendship, searchUsers, getFriendsEvents };
+
