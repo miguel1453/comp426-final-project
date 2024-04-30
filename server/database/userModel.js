@@ -55,24 +55,32 @@ const login = (username, password) => {
 
 const createFriendship = (user1, user2) => {
   return new Promise((resolve, reject) => {
-    if (!user1 || !user2) {
-      console.error('Invalid input: user1 and user2 must be provided');
-      reject(new Error('Invalid input: user1 and user2 must be provided'));
-      return;
-    }
-    
-    const query = `INSERT INTO friends (user1, user2) VALUES (?, ?)`;
-    db.run(query, [user1, user2], function(err) {
+    // First check if the friendship already exists to avoid UNIQUE constraint errors
+    const checkQuery = `SELECT 1 FROM friends WHERE (user1 = ? AND user2 = ?) OR (user1 = ? AND user2 = ?)`;
+    db.get(checkQuery, [user1, user2, user2, user1], (err, result) => {
       if (err) {
-        console.error('Error creating friendship', err.message);
+        console.error('Error checking friendship', err.message);
         reject(err);
+      } else if (result) {
+        // If there's already such a friendship, we reject with a specific message
+        reject(new Error('Friendship already exists'));
       } else {
-        console.log('Friendship created');
-        resolve();
+        // If no friendship exists, proceed to insert
+        const insertQuery = `INSERT INTO friends (user1, user2) VALUES (?, ?)`;
+        db.run(insertQuery, [user1, user2], function(err) {
+          if (err) {
+            console.error('Error creating friendship', err.message);
+            reject(err);
+          } else {
+            console.log('Friendship created');
+            resolve();
+          }
+        });
       }
     });
   });
 };
+
 
 const getFriends = async (userId) => {
   try {
@@ -166,4 +174,3 @@ const getEvents = async (userId) => {
 }
 
 module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, removeFriendship, searchUsers, getEvents };
-n

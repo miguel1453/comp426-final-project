@@ -21,24 +21,25 @@ const FriendshipManager = ({ userId }) => {
   };
 
   const addFriend = async (friendId) => {
-    if (!friendId) {
-        console.error("Invalid friend ID");
-        return;
-    }
     try {
         const response = await axios.post('http://localhost:3001/addFriend', {
-            user1: userId, // Ensure `userId` is correctly defined and populated
+            user1: userId,
             user2: friendId
         });
         if (response.status === 201) {
-            console.log("Friend added successfully");
-            // Optionally refresh friend list or update UI here
+            alert("Friend added successfully!");
+            fetchFriends();  // Refresh the friends list
         }
     } catch (error) {
-        console.error('Failed to add friend:', error.response ? error.response.data : error.message);
-        alert('Failed to add friend. Please try again.');
+        if (error.response && error.response.data.message === 'Friendship already exists') {
+            alert('This friendship already exists.');
+        } else {
+            alert('Failed to add friend. Please try again.');
+        }
+        console.error('Failed to add friend:', error.response || error.message);
     }
 };
+
 
   const removeFriend = async (friendId) => {
     try {
