@@ -12,9 +12,7 @@ const Profile = () => {
   const friendsList = [{ username: 'Friend 1' }, { username: 'Friend 2' }, { username: 'Friend 3' }];
   
   useEffect(() => {
-    console.log(Cookies.get('userId'));
     const id = Cookies.get('userId');
-    
     const findUser = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/getUserById/${id}`);
@@ -25,56 +23,44 @@ const Profile = () => {
    
   }
   findUser();
-    // Filtering friends b
   }, []);
 
- 
-
-  // const handleAddFriend = () => {
-  //   try {
-  //     axios.post('http://localhost:3001/addFriend', {
-  //       user1: userId,
-  //       user2: searchUsername
-  //     });
-  //     setSearchUsername('');
-  //   } catch (err) {
-  //     console.error('Failed to add friend:', err.response ? err.response.data : 'No response');
-  //     return false; //TODO: Add error handling
-  //   }
-  // };
 
   return (
-    <div className={styles.Profile}>
-      <h2>Profile</h2>
-      <div className={styles.Info}>
-        <p><strong>First Name: {user.firstName}</strong> </p>
-        <p><strong>Last Name: {user.lastName}</strong></p>
-        <p><strong>Username: {user.username}</strong> </p>
+    !user ? (
+      <div>Loading</div>
+    ) : (
+      <div className={styles.Profile}>
+        <h2>Profile</h2>
+        <div className={styles.Info}>
+          <p><strong>First Name: {user.firstName}</strong> </p>
+          <p><strong>Last Name: {user.lastName}</strong></p>
+          <p><strong>Username: {user.username}</strong> </p>
+        </div>
+  
+        <h3>Saved Events</h3>
+        <ul className={styles.SavedEvents}>
+          {savedEvents.map((event, index) => (
+            <li key={index}>{event}</li>
+          ))}
+        </ul>
+  
+        <h3>Friends List</h3>
+        <input
+          type="text"
+          value={searchUsername}
+          placeholder="Search username..."
+          onChange={(e) => setSearchUsername(e.target.value)}
+        />
+  
+        <ul className={styles.FriendsList}>
+          {filteredFriends.map((friend, index) => (
+            <li key={index}>{friend.username}</li>
+          ))}
+        </ul>
       </div>
-
-      <h3>Saved Events</h3>
-      <ul className={styles.SavedEvents}>
-        {savedEvents.map((event, index) => (
-          <li key={index}>{event}</li>
-        ))}
-      </ul>
-
-      <h3>Friends List</h3>
-      <input
-        type="text"
-        value={searchUsername}
-        placeholder="Search username..."
-        onChange={(e) => setSearchUsername(e.target.value)}
-      />
-      {/* <button onClick={handleAddFriend}>Add Friend</button> */}
-
-      <ul className={styles.FriendsList}>
-        {filteredFriends.map((friend, index) => (
-          <li key={index}>{friend.username}</li>
-        ))}
-      </ul>
-    </div>
+    )
   );
-};
+}
 
 export default Profile;
