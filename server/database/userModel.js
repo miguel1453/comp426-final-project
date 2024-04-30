@@ -39,16 +39,19 @@ const getUser = (username) => {
 };
 
 
-const login = async (username, password) => {
-    const user = await getUser(username);
-    if (!user) {
-        throw new Error('No user with this username');
-    }
-    if (user.password !== password) {
-        throw new Error('Incorrect password');
-    }
-    return user;
-};
+const login = (username, password) => {
+  return new Promise((resolve, reject) => {
+    db.get(`SELECT id FROM users WHERE username = ? AND password = ?`, [username, password], (err, row) => {
+      if (err) {
+        reject(err);
+      } else if (!row) {
+        reject('Invalid username or password');
+      } else {
+        resolve({ id: row.id });
+      }
+    });
+  });
+}
 
 const createFriendship = (user1, user2) => {
   return new Promise((resolve, reject) => {

@@ -30,7 +30,6 @@ app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const result = await login(username, password);
-        req.session.userId = result.id; // Set session first
         res.status(201).json({
             message: "Logged in successfully",
             userId: result.id
