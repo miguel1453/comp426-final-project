@@ -32,7 +32,7 @@ app.post('/login', async (req, res) => {
         const result = await login(username, password);
         res.status(201).json({
             message: "Logged in successfully",
-            userId: result.id
+            id: result.id
         });
         // If you need to redirect, remove the JSON response above and uncomment below
         // res.redirect('/');
