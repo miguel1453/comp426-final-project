@@ -29,6 +29,11 @@ const Profile = () => {
   findUser();
   }, []);
 
+  const logout = () => {
+    Cookies.remove('userId');
+    window.location.href = '/';
+  };
+
 
   return (
     <div className={styles.ProfilePage}>
@@ -73,7 +78,7 @@ const Profile = () => {
         <button>Add Friend</button>
         <p></p>
         <div>
-        <button>Log Out</button>
+        <button onClick={logout}>Log Out</button>
           </div>
         <ul className={styles.FriendsList}>
           {filteredFriends.map((friend, index) => (
