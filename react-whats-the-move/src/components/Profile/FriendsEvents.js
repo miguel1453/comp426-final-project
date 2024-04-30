@@ -30,7 +30,7 @@ const FriendsEvents = ({ user }) => {
                                 return(
                                     <div className={styles.EventBox} key={event.eventId}>
                                         <h3>{event.eventName} - {event.eventDate}</h3>
-                                        <a href='#'> Implement link to event </a>
+                                        <a href={event.url}> More Details </a>
                                     </div>
                                 );
                             }))
