@@ -1,10 +1,10 @@
 const db = require("./database.js");
 
 
-const createUser = (username, password) => {
+const createUser = (username, password, firstName, lastName) => {
   return new Promise((resolve, reject) => {
-      const query = `INSERT INTO users (username, password) VALUES (?, ?)`;
-      db.run(query, [username, password], function(err) {
+      const query = `INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)`;
+      db.run(query, [username, password, firstName, lastName], function(err) {
           if (err) {
               reject(err);
           } else {
@@ -97,4 +97,19 @@ const getFriends = async (userId) => {
   }
 }
 
-module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends };
+const addEvent = async (userId, eventName, eventDate, eventId) => {
+  return new Promise((resolve, reject) => {
+    const query = `INSERT INTO savedEvents (userId, eventName, eventDate, eventId) VALUES (?, ?, ?, ?)`;
+    db.run(query, [userId, eventName, eventDate, eventId], function(err) {
+      if (err) {
+        console.error('Error saving event', err.message);
+        reject('Failed to save event');
+      } else {
+        console.log('Event saved');
+        resolve({ id: this.lastID }); // Return the id of the inserted row
+      }
+    });
+  });
+}
+
+module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent };

@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, login, createFriendship, getFriends, getUser, getUserById } = require('./userModel.js');
+const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent } = require('./userModel.js');
 const cors = require('cors');
 
 const app = express();
@@ -14,9 +14,9 @@ app.use(express.json());
 
 
 app.post('/signup', async(req, res) => {
-    const { username, password } = req.body;
+    const { username, password, firstName, lastName } = req.body;
     try {
-        const result = await createUser(username, password);
+        const result = await createUser(username, password, firstName, lastName);
         res.status(201).json({
             message: "User created successfully",
             user: result.id
@@ -83,6 +83,16 @@ app.post('/getUserByID', async (req, res) => {
         res.status(200).json({ user });
     } catch (error) {
         res.status(500).json({ message: "Failed to get user", error: error.message });
+    }
+});
+
+app.post('/addEvent', async (req, res) => {
+    const { userId, eventName, eventDate, eventId } = req.body;
+    try {
+        const result = await addEvent(userId, eventName, eventDate, eventId);
+        res.status(201).json({ message: "Event saved successfully", eventId: result.id });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to save event", error: error.message });
     }
 });
 

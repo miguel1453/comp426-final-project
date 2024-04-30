@@ -26,7 +26,9 @@ function initializeDb() {
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username VARCHAR(200) NOT NULL UNIQUE,
-            password VARCHAR(200) NOT NULL
+            password VARCHAR(200) NOT NULL,
+            firstName VARCHAR(200) NOT NULL,
+            lastName VARCHAR(200) NOT NULL
         );
     `;
 
@@ -51,6 +53,25 @@ function initializeDb() {
             console.error('Error creating friends table', err.message);
         } else {
             console.log('Friends table created or already exists');
+        }
+    });
+
+    const query3 = `
+        CREATE TABLE IF NOT EXISTS savedEvents (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            userId INTEGER NOT NULL,
+            eventName VARCHAR(200) NOT NULL,
+            eventDate VARCHAR(200) NOT NULL,
+            eventId VARCHAR(200) NOT NULL,
+            FOREIGN KEY (userId) REFERENCES users(id)
+            PRIMARY KEY (userId, eventId)
+        );
+    `;
+    db.run(query3, (err) => {
+        if (err) {
+            console.error('Error creating savedEvents table', err.message);
+        } else {
+            console.log('SavedEvents table created or already exists');
         }
     });
 
