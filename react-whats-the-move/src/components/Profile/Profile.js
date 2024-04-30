@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import LocalActivity from '@mui/icons-material/LocalActivity';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Login from '../Login.js'
 import SavedEvents from './SavedEvents.js';
-import FriendshipManager from './FriendshipManager.js';
 import Cookies from 'js-cookie';
 import styles from './Profile.module.css';
+import FriendshipManager from '../FriendshipManager/FriendshipManager.js';
 
 const Profile = () => {
     const [user, setUser] = useState({});

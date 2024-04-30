@@ -2,8 +2,6 @@ const express = require('express');
 const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, getEvents, removeFriendship, searchUsers, getFriendsEvents } = require('./userModel.js');
 const cors = require('cors');
 
-const cors = require('cors');
-
 
 const app = express();
 
