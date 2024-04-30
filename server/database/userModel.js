@@ -140,6 +140,7 @@ const getEvents = async (userId) => {
   }
 }
 
+
 const getFriendsEvents = async (userId) => {
   try {
     const friends = await getFriends(userId);
@@ -192,4 +193,3 @@ const searchUsers = (username) => {
 
 
 module.exports = { createUser, getUserById, getUser, login, createFriendship, getFriends, addEvent, getEvents, getFriendsEvents, addEvent, searchUsers, removeFriendship };
-

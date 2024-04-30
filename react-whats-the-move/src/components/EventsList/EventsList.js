@@ -45,7 +45,8 @@ const EventList = () => {
           userId: id,
           eventName: event.name,
           eventDate: event.dates.start.localDate,
-          eventId: event.id
+          eventId: event.id,
+          eventUrl: event.url
       });
       } catch (err) { 
         console.error('Failed to save event:', err.response ? err.response.data : 'No response');
@@ -78,18 +79,24 @@ const EventList = () => {
         <div>{error}</div>
       ) : (
         <div className="event-cards">
-          {events.length > 0 ? events.map((event) => (
-            <div className="event-card" key={event.id}>
-              <img src={event.images[0].url} alt={event.name} className="event-image" />
-              <h2>{event.name}</h2>
-              <p>{event.dates.start.localDate} at {event._embedded?.venues[0].name}</p>
-              <a href={event.url} target="_blank" rel="noopener noreferrer">More Details</a>
-              {/* Add button to save event if the user is logged in */}
-              {loggedIn && (
-                <button className="add-to-saved-button" onClick={() => addToSavedEvents(event)}>Add to Saved Events</button>
-              )}
-            </div>
-          )) : <p>No events found!</p>}
+          {events.length > 0 ? events.map((event) => {
+            const eventDate = new Date(event.dates.start.localDate); // Convert to Date object
+            const formattedDate = eventDate.toLocaleDateString('en-US', {
+              year: 'numeric', month: 'long', day: 'numeric'
+            }); // Format as "Month Date, Year"
+            return (
+              <div class="event-card" key={event.id}>
+                <img src={event.images[0].url} alt={event.name} className="event-image" />
+                <h2>{event.name}</h2>
+                <p>{formattedDate} at {event._embedded?.venues[0].name}</p> {/* Use formatted date */}
+                <a href={event.url} target="_blank" rel="noopener noreferrer">More Details</a>
+
+                {loggedIn && (
+                  <button class="add-to-saved-button" onClick={() => addToSavedEvents(event)}>Add to Saved Events</button>
+                )}
+              </div>
+          );
+      }) : <p>No events found!</p>}
         </div>
       )}
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styles from './Profile.module.css';
 
 
 const SavedEvents = ({ user }) => {
@@ -20,13 +21,13 @@ const SavedEvents = ({ user }) => {
     return(
         <div>
             <h2>Saved Events</h2>
-            <ul>
+
+            <ul className={styles.SavedEventList}>
                 {events.map(event => (
-                    <li key={event.id}>
-                        {event.eventName} - {event.eventDate}
-                        <a href='#'> Implement link to event </a>
+                    <li className={styles.SavedEventItem} key={event.id}>
+                        {event.eventName} | {event.eventDate}
+                         <a href={event.url} target="_blank" rel="noopener noreferrer">More Details</a>
                     </li>
-                    
                 ))}
             </ul>
         </div>

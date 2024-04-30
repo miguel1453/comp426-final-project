@@ -1,5 +1,6 @@
 const express = require('express');
 const { createUser, login, createFriendship, getFriends, getUser, getUserById, addEvent, getEvents, removeFriendship, searchUsers, getFriendsEvents } = require('./userModel.js');
+
 const cors = require('cors');
 
 
@@ -105,6 +106,7 @@ app.get('/getEvents/:userId', async (req, res) => {
     }
 });
 
+
 app.get('/getFriendsEvents/:userId', async (req, res) => {
     const { userId } = req.params;
     try {
@@ -136,6 +138,7 @@ app.delete('/removeFriend', async (req, res) => {
 
     }
 });
+
 
 
 const PORT = 3001;
