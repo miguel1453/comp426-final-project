@@ -23,15 +23,18 @@ const FriendsEvents = ({ user }) => {
                 {friendEvents.map(user => (
                     <li key={user.username}>
                         <h2>{user.username}</h2>
-                        { user.events.map(event => {
-                            
-                            return(
-                                <div key={event.eventId}>
-                                    <h3>{event.eventName} - {event.eventDate}</h3>
-                                    <a href='#'> Implement link to event </a>
-                                </div>
-                            );
-                        })}
+                        { user.events.length === 0 ? <p>No events saved yet</p> : 
+                            ( user.events.map(event => {
+                                
+                                return(
+                                    <div key={event.eventId}>
+                                        <h3>{event.eventName} - {event.eventDate}</h3>
+                                        <a href='#'> Implement link to event </a>
+                                    </div>
+                                );
+                            }))
+                        
+                         }
                     </li>
                     
                 ))}
