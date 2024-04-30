@@ -108,10 +108,10 @@ const getFriends = async (userId) => {
   }
 }
 
-const addEvent = async (userId, eventName, eventDate, eventId) => {
+const addEvent = async (userId, eventUrl, eventName, eventDate, eventId) => {
   return new Promise((resolve, reject) => {
-    const query = `INSERT INTO savedEvents (userId, eventName, eventDate, eventId) VALUES (?, ?, ?, ?)`;
-    db.run(query, [userId, eventName, eventDate, eventId], function(err) {
+    const query = `INSERT INTO savedEvents (userId, eventUrl, eventName, eventDate, eventId) VALUES (?, ?, ?, ?, ?)`;
+    db.run(query, [userId, eventUrl, eventName, eventDate, eventId], function(err) {
       if (err) {
         console.error('Error saving event', err.message);
         reject('Failed to save event', err.message);

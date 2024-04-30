@@ -59,6 +59,7 @@ function initializeDb() {
     const query3 = `
         CREATE TABLE IF NOT EXISTS savedEvents (
             userId INTEGER NOT NULL,
+            eventUrl VARCHAR(200) NOT NULL,
             eventName VARCHAR(200) NOT NULL,
             eventDate VARCHAR(200) NOT NULL,
             eventId VARCHAR(200) NOT NULL,

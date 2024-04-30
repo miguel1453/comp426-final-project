@@ -87,9 +87,9 @@ app.get('/getUserById/:userId', async (req, res) => {
 
 
 app.post('/addEvent', async (req, res) => {
-    const { userId, eventName, eventDate, eventId } = req.body;
+    const { userId, eventUrl, eventName, eventDate, eventId } = req.body;
     try {
-        const result = await addEvent(userId, eventName, eventDate, eventId);
+        const result = await addEvent(userId, eventUrl, eventName, eventDate, eventId);
         res.status(201).json({ message: "Event saved successfully", eventId: result.id });
     } catch (error) {
         res.status(500).json({ message: "Failed to save event", error: error.message });

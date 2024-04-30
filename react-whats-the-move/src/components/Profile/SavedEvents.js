@@ -26,7 +26,7 @@ const SavedEvents = ({ user }) => {
                 {events.map(event => (
                     <li className={styles.SavedEventItem} key={event.id}>
                         {event.eventName} | {event.eventDate}
-                         <a href={event.url} target="_blank" rel="noopener noreferrer">More Details</a>
+                         <a href={event.eventUrl} target="_blank" rel="noopener noreferrer">More Details</a>
                     </li>
                 ))}
             </ul>
