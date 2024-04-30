@@ -41,17 +41,14 @@ const FriendshipManager = ({ userId }) => {
 };
 
 
-  const removeFriend = async (friendId) => {
-    try {
-      await axios.delete(`http://localhost:3001/removeFriend`, { 
-         user1: userId, 
-         user2: friendId
-         });
-      setFriends(friends.filter(friend => friend.id !== friendId));
-    } catch (error) {
-      console.error('Failed to remove friend:', error);
-    }
-  };
+const removeFriend = async (friendId) => {
+  try {
+    await axios.delete(`http://localhost:3001/removeFriend`, { data: { user1: userId, user2: friendId } });
+    fetchFriends();  
+  } catch (error) {
+    console.error('Failed to remove friend:', error);
+  }
+};
 
   const searchUsers = async () => {
     if (!searchUsername.trim()) return;
