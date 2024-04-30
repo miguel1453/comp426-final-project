@@ -48,7 +48,6 @@ const EventList = () => {
     const addToSavedEvents = async (event) => {
       try {
         const id = Cookies.get('userId');
-        console.log("This the id", id);
         await axios.post('http://localhost:3001/addEvent', {  
           userId: id,
           eventName: event.name,
