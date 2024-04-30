@@ -18,7 +18,7 @@ function TopToolbar({ onFeedClick, onHomeClick }) {
                 </Typography>
                 { 
                 userId ? 
-                <Link className={styles.toolbarTink} to="/profile">Your Feed</Link> 
+                <Link className={styles.toolbarTink} to="/profile">Your Profile</Link> 
                 : 
                 <Link className={styles.toolbarTink} to='/login'>Sign In/Register</Link> 
                 }
