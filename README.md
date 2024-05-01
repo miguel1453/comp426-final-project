@@ -4,7 +4,19 @@
 https://youtu.be/Zkyh6gZZx-E
 
 ## Description
-This project is the final assignment for Comp426. It's a web application that allows users to search for events by location and type, and save their favorite events.
+This project is the final assignment for Comp426. It's a web application that allows users to search for events by location and type, and save their favorite events. Users can add friends and view their saved events as well. 
+
+Features/Requirements of our app:
+- Interactive and event-driven frontend using React JS that offers a pleasing user experience
+- Backend implemented using Node.js and Express.js that serves 3 resources (3 tables) using Sqlite3
+- Utilizes Ticketmaster API
+- Uses JS Cookies for session-persistent state
+
+## Presentation Video
+Link- https://youtu.be/Zkyh6gZZx-E
+
+## Presentation Slides
+https://docs.google.com/presentation/d/1nph-P8HnAZmSVQYGx0n5w4SPsC16H94zKCcqP_X_liM/edit?usp=sharing
 
 ## Features
 - Search for events by location and type
