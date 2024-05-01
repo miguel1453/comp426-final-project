@@ -1,5 +1,8 @@
 # comp426-final-project# Comp426 Final Project
 
+## VIDEO LINK 
+https://youtu.be/Zkyh6gZZx-E
+
 ## Description
 This project is the final assignment for Comp426. It's a web application that allows users to search for events by location and type, and save their favorite events.
 
